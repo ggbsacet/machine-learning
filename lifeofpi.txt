@@ -1,0 +1,69 @@
+imports microsoftvisualbasic
+imports systemdata
+imports systemdatasqlclient
+
+public class clsposreceiptsformat
+
+    public function populateposreceiptformatbyval companyid as string byval divisionid as string byval departmentid as string byval paymentmethod as string as datatable
+
+        dim dt as new datatable
+
+        using connection as new sqlconnectionconfigurationmanagerappsettingsconnectionstring
+            using command as new sqlcommandenterprisepopulateposreceiptformat connection
+                commandcommandtype = commandtypestoredprocedure
+
+                commandparametersaddwithvaluecompanyid companyid
+                commandparametersaddwithvaluedivisionid divisionid
+                commandparametersaddwithvaluedepartmentid departmentid
+                commandparametersaddwithvaluepaymentmethod paymentmethod
+
+                try
+                    dim da as new sqldataadaptercommand
+                    dafilldt
+                catch ex as exception
+
+                end try
+
+            end using
+        end using
+
+        return dt
+
+    end function
+
+
+    public function addeditposreceiptformatbyval companyid as string byval divisionid as string byval departmentid as string byval paymentmethod as string 
+                                             byval headercontent as string byval itemcontent as string byval footercontent as string byval printretailercopy as boolean as boolean
+
+        using connection as new sqlconnectionconfigurationmanagerappsettingsconnectionstring
+            using command as new sqlcommandenterpriseaddeditposreceiptformat connection
+                commandcommandtype = commandtypestoredprocedure
+
+                commandparametersaddwithvaluecompanyid companyid
+                commandparametersaddwithvaluedivisionid divisionid
+                commandparametersaddwithvaluedepartmentid departmentid
+                commandparametersaddwithvaluepaymentmethod paymentmethod
+
+                commandparametersaddwithvalueheadercontent headercontent
+                commandparametersaddwithvalueitemcontent itemcontent
+                commandparametersaddwithvaluefootercontent footercontent
+                commandparametersaddwithvalueprintretailercopy printretailercopy
+
+                try
+                    commandconnectionopen
+                    commandexecutenonquery
+
+                    return true
+
+                catch ex as exception
+                    return false
+                finally
+                    commandconnectionclose
+                end try
+
+            end using
+        end using
+
+    end function
+
+end class
