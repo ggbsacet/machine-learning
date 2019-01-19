@@ -1,0 +1,5 @@
+type the following command on prompt
+
+c:\what ever the path is there..> jupyter notebook
+
+command is "jupyter notebook"
