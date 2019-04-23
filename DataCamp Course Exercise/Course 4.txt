@@ -1,0 +1,325 @@
+# Create a list of strings: mutants
+mutants = ['charles xavier', 
+            'bobby drake', 
+            'kurt wagner', 
+            'max eisenhardt', 
+            'kitty pryde']
+
+# Create a list of tuples: mutant_list
+mutant_list = list(enumerate(mutants))
+
+# Print the list of tuples
+print(mutant_list)
+
+# Unpack and print the tuple pairs
+for index1, value1 in enumerate(mutants):
+    print(index1, value1)
+
+# Change the start index
+for index2, value2 in enumerate(mutants, start = 1):
+    print(index2, value2)
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Create a list of tuples: mutant_data
+mutant_data = list(zip(mutants, aliases, powers))
+
+# Print the list of tuples
+print(mutant_data)
+
+# Create a zip object using the three lists: mutant_zip
+mutant_zip = zip(mutants, aliases, powers)
+
+# Print the zip object
+print(mutant_zip)
+
+# Unpack the zip object and print the tuple values
+for value1, value2, value3 in mutant_zip:
+    print(value1, value2, value3)
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Initialize an empty dictionary: counts_dict
+counts_dict = {}
+
+# Iterate over the file chunk by chunk
+for chunk in pd.read_csv('tweets.csv', chunksize = 10):
+
+    # Iterate over the column in DataFrame
+    for entry in chunk['lang']:
+        if entry in counts_dict.keys():
+            counts_dict[entry] += 1
+        else:
+            counts_dict[entry] = 1
+
+# Print the populated dictionary
+print(counts_dict)
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Define count_entries()
+def count_entries(csv_file, c_size, colname):
+    """Return a dictionary with counts of
+    occurrences as value for each key."""
+    
+    # Initialize an empty dictionary: counts_dict
+    counts_dict = {}
+
+    # Iterate over the file chunk by chunk
+    for chunk in pd.read_csv(csv_file, chunksize = c_size):
+
+        # Iterate over the column in DataFrame
+        for entry in chunk[colname]:
+            if entry in counts_dict.keys():
+                counts_dict[entry] += 1
+            else:
+                counts_dict[entry] = 1
+
+    # Return counts_dict
+    return counts_dict
+
+# Call count_entries(): result_counts
+result_counts = count_entries('tweets.csv', 10, 'lang')
+
+# Print result_counts
+print(result_counts)
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+list comprehensions is a great way to produce another list working on old list 
+
+doctor = ['house', 'cuddy', 'chase', 'thirteen', 'wilson']
+
+newlist = [];
+for item in doctor:
+    newlist = item
+
+print(newlist)
+
+//foloowing is the one line of code to do the same as for loop above (this will actually print the first char of eah word)
+newlist = [doc[0] for doc in doctor]
+print(newlist) 
+
+====>  this is the out populated ===> ['h', 'c', 'c', 't', 'w']
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Create list comprehension: squares
+squares = [i ** 2 for i in range(0,10)]
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+list = [num ** 2 for num in range(10) if num % 2 == 0 ]
+Oytput : [0, 4, 16, 36, 64]
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+list = [num ** 2 if num % 2 == 0 else 0 for num in range(10)]
+Oytput : [0, 0, 4, 0, 16, 0, 36, 0, 64, 0]
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+dict = {num:-num for num in range(5)}
+output : {0:0, 1:-1, 2:-2, 3:-3, 4:-4 }  //here num:-num is key:value pair where key is "num" and value is "-num"
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Create a list of strings: fellowship
+fellowship = ['frodo', 'samwise', 'merry', 'aragorn', 'legolas', 'boromir', 'gimli']
+
+# Create list comprehension: new_fellowship
+new_fellowship = [member for member in fellowship if len(member) >= 7]
+
+# Print the new list
+print(new_fellowship)
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Create a list of strings: fellowship
+fellowship = ['frodo', 'samwise', 'merry', 'aragorn', 'legolas', 'boromir', 'gimli']
+
+# Create list comprehension: new_fellowship
+new_fellowship = [member if len(member) >=7 else '' for member in fellowship]
+
+# Print the new list
+print(new_fellowship)
+
+--------------------------------------------------------------------------------------------------------------------------------
+# Create a list of strings: fellowship
+fellowship = ['frodo', 'samwise', 'merry', 'aragorn', 'legolas', 'boromir', 'gimli']
+
+# Create dict comprehension: new_fellowship
+new_fellowship = {member: len(member) for member in fellowship}
+
+# Print the new list
+print(new_fellowship)
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+list comprehension creates a list of objects in memory while
+generator object creates generator object which perform same as list but does not create or use any memeory
+
+To use or read the value from generator object use next() function
+
+# Create generator object: result
+result = (num for num in range(0,31))
+
+# Print the first 5 values
+print(next(result))
+print(next(result))
+print(next(result))
+print(next(result))
+print(next(result))
+
+# Print the rest of the values
+for value in result:
+    print(value)
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Create a list of strings
+lannister = ['cersei', 'jaime', 'tywin', 'tyrion', 'joffrey']
+
+# Define generator function get_lengths
+def get_lengths(input_list):
+    """Generator function that yields the
+    length of the strings in input_list."""
+
+    # Yield the length of a string
+    for person in input_list:
+        yield len(person)
+
+# Print the values generated by get_lengths()
+for value in get_lengths(lannister):
+    print(value)
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Extract the created_at column from df: tweet_time
+tweet_time = df['created_at']
+
+# Extract the clock time: tweet_clock_time() from 12th char to 19th chars in string)
+tweet_clock_time = [entry[11:19] for entry in tweet_time]
+
+# Print the extracted times
+print(tweet_clock_time)
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Extract the created_at column from df: tweet_time
+tweet_time = df['created_at']
+
+# Extract the clock time: tweet_clock_time
+tweet_clock_time = [entry[11:19] for entry in tweet_time if entry[17:19] == '19']
+
+# Print the extracted times
+print(tweet_clock_time)
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+The csv file 'world_dev_ind.csv' is in your current directory for your use. To begin, you need to open a connection to this file using 
+what is known as a context manager. For example, the command with open('datacamp.csv') as datacamp binds the csv 
+file 'datacamp.csv' as datacamp in the context manager. Here, the with statement is the context manager, and its purpose is to ensure 
+that resources are efficiently allocated when opening a connection to a file.
+
+# Open a connection to the file
+with open('world_dev_ind.csv') as file:
+
+    # Skip the column names
+    file.readline()
+
+    # Initialize an empty dictionary: counts_dict
+    counts_dict = {}
+
+    # Process only the first 1000 rows
+    for j in range(0,1000):
+
+        # Split the current line into a list: line
+        line = file.readline().split(',')
+
+        # Get the value for the first column: first_col
+        first_col = line[0]
+
+        # If the column value is in the dict, increment its value
+        if first_col in counts_dict.keys():
+            counts_dict[first_col] += 1
+
+        # Else, add to the dict and set value to 1
+        else:
+            counts_dict[first_col] = 1
+
+# Print the resulting dictionary
+print(counts_dict)
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Define read_large_file()
+def read_large_file(file_object):
+    """A generator function to read a large file lazily."""
+
+    # Loop indefinitely until the end of the file
+    while True:
+
+        # Read a line from the file: data
+        data = file_object.readline()
+
+        # Break if this is the end of the file
+        if not data:
+            break
+
+        # Yield the line of data
+        yield data
+        
+# Open a connection to the file
+with open('world_dev_ind.csv') as file:
+
+    # Create a generator object for the file: gen_file
+    gen_file = read_large_file(file)
+
+    # Print the first three lines of the file
+    print(next(gen_file))
+    print(next(gen_file))
+    print(next(gen_file))
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+# Initialize reader object: urb_pop_reader
+urb_pop_reader = pd.read_csv('ind_pop_data.csv', chunksize=1000)
+
+# Get the first DataFrame chunk: df_urb_pop
+df_urb_pop = next(urb_pop_reader)
+
+# Check out the head of the DataFrame
+print(df_urb_pop.head())
+
+# find the list of items having the country code = ceb in df_urb_pop
+df_pop_ceb = df_urb_pop[df_urb_pop['CountryCode'] == 'CEB']
+
+# Zip DataFrame columns of interest: pops
+pops = zip(df_pop_ceb['Total Population'], df_pop_ceb['Urban population (% of total)'])
+
+# Turn zip object into list: pops_list
+pops_list = list(pops)
+
+# Print pops_list
+print(pops_list)
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------------------------------------------------------

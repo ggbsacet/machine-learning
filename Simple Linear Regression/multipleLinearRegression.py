@@ -24,9 +24,9 @@ train_data=data[mask]
 test_data=data[~mask]
 
 from sklearn import linear_model
-r = linear_model.LinearRegression()
+regr = linear_model.LinearRegression()
 trainX = np.asanyarray(train_data[['ENGINESIZE','CYLINDERS','FUELCONSUMPTION_COMB']])
 trainY=np.asanyarray(train_data[['CO2EMISSIONS']])
-r.fit(trainX, trainY)
+regr.fit(trainX, trainY)
 
 print ('Coefficients: ', regr.coef_)
